@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT Study Guide</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Add to your existing styles */
+.dark {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+.dark .bg-white {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+.dark .bg-gray-100 {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+.dark .bg-gray-50 {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+.dark .text-gray-600 {
+  color: #e2e8f0;
+}
+.dark .text-gray-800 {
+  color: #e2e8f0;
+}
+.dark .border-gray-300 {
+  border-color: #4a5568;
+}
+.dark .hover\:bg-gray-100:hover {
+  background-color: #4a5568;
+}
+.dark .prose h2,
+.dark .prose h3 {
+  color: #90cdf4;
+}
+.dark .prose p,
+.dark .prose ul,
+.dark .prose ol,
+.dark .prose li {
+  color: #e2e8f0;
+}
+.dark .example {
+  background-color: rgba(66, 153, 225, 0.1);
+}
+    .transform-scale:hover {
+      transform: scale(1.05);
+    }
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+    .chat-message {
+      transition: all 0.3s ease;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dark {
+      background-color: #1a202c;
+      color: #e2e8f0;
+    }
+    .dark .bg-dark {
+      background-color: #2d3748;
+    }
+    .dark .border-dark {
+      border-color: #4a5568;
+    }
+    .dark .text-dark {
+      color: #e2e8f0;
+    }
+    .dark .bg-input-dark {
+      background-color: #4a5568;
+    }
+    .loading-dots:after {
+      content: '.';
+      animation: dots 1.5s steps(5, end) infinite;
+    }
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60% { content: '...'; }
+      80%, 100% { content: ''; }
+    }
+    .prose {
+      color: inherit;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #90cdf4;
+    }
+    .prose h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #90cdf4;
+    }
+    .prose p {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    .prose ul, .prose ol {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .prose ul li, .prose ol li {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .prose ul {
+      list-style-type: disc;
+    }
+    .prose ol {
+      list-style-type: decimal;
+    }
+    .prose .example {
+      background-color: rgba(66, 153, 225, 0.1);
+      padding: 1rem;
+      border-left: 4px solid #4299e1;
+      margin: 1rem 0;
+      border-radius: 0.25rem;
+    }
+  </style>
+</head>
+<!-- Add this button to the top of your sidebar, just after the h1 title -->
+<div class="flex justify-end mb-4">
+  <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+    <!-- Sun icon for dark mode -->
+    <svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+    </svg>
+    <!-- Moon icon for light mode -->
+    <svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+    </svg>
+  </button>
+</div>
+<body class="bg-gray-100 text-gray-600">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white text-gray-600 p-4 border-r border-gray-300 shadow-md">
+      <h1 class="text-2xl font-bold mb-6 text-blue-600">SAT Study Guide</h1>
+      
+      <div class="space-y-2">
+        <button id="math-btn" onclick="handleSectionClick('Math')" class="w-full text-left py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100">
+          Math
+        </button>
+        <button id="grammar-btn" onclick="handleSectionClick('Grammar')" class="w-full text-left py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100">
+          Grammar
+        </button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 p-6 overflow-auto bg-gray-100">
+      <!-- Topic selection -->
+      <div id="topic-selection" class="mb-6 hidden">
+        <h2 id="section-title" class="text-2xl font-semibold mb-4 text-blue-600"></h2>
+        <div id="topics-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Topics will be populated here -->
+        </div>
+      </div>
+
+      <!-- Subtopic selection -->
+      <div id="subtopic-selection" class="mb-6 hidden">
+        <h2 id="topic-title" class="text-2xl font-semibold mb-4 text-blue-600"></h2>
+        <div id="subtopics-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Subtopics will be populated here -->
+        </div>
+      </div>
+
+      <!-- Loading indicator -->
+      <div id="loading" class="flex flex-col items-center justify-center h-64 hidden">
+        <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="mt-2 text-gray-600">Generating AI content<span class="loading-dots"></span></p>
+      </div>
+
+      <!-- Lesson content -->
+      <div id="lesson-content" class="bg-white p-6 rounded-lg shadow-md mb-6 border border-gray-300 hidden">
+        <!-- Lesson content will be populated here -->
+      </div>
+
+      <!-- Practice questions -->
+      <div id="practice-questions" class="bg-white p-6 rounded-lg shadow-md border border-gray-300 hidden">
+        <h2 class="text-xl font-semibold mb-4 text-blue-600">Practice Questions</h2>
+        <div id="questions-container" class="space-y-8">
+          <!-- Questions will be populated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+const themeToggleBtn = document.getElementById('theme-toggle');
+const sunIcon = document.getElementById('sun-icon');
+const moonIcon = document.getElementById('moon-icon');
+
+// Check for saved theme preference or use system preference
+if (localStorage.getItem('color-theme') === 'dark' || 
+    (!('color-theme' in localStorage) && 
+     window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark');
+  sunIcon.classList.remove('hidden');
+  moonIcon.classList.add('hidden');
+} else {
+  document.documentElement.classList.remove('dark');
+  moonIcon.classList.remove('hidden');
+  sunIcon.classList.add('hidden');
+}
+
+// Add click event to theme toggle button
+themeToggleBtn.addEventListener('click', function() {
+  // Toggle icons
+  sunIcon.classList.toggle('hidden');
+  moonIcon.classList.toggle('hidden');
+  
+  // Toggle dark class on html element
+  document.documentElement.classList.toggle('dark');
+  
+  // Update localStorage
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem('color-theme', 'dark');
+  } else {
+    localStorage.setItem('color-theme', 'light');
+  }
+});
+    // State variables
+    let activeSection = '';
+    let activeTopic = '';
+    let activeSubtopic = '';
+    let lessonContent = null;
+    let practiceQuestions = [];
+    let userAnswers = {};
+    let feedback = {};
+
+    // SAT syllabus data structure
+    const syllabus = {
+      Math: {
+        'Algebra': ['Linear Equations & Inequalities', 'Systems of Linear Equations', 'Linear Functions', 'Linear Inequalities'],
+        'Advanced Math': ['Quadratic Equations', 'Polynomials', 'Rational Expressions', 'Radical Expressions', 'Exponents & Exponential Functions', 'Functions (f(x))', 'Graphs of Functions', 'Non-linear Equations'],
+        'Problem Solving & Data Analysis': ['Ratios, Rates, Proportions', 'Percentages', 'Data Interpretation', 'Probability', 'Statistics'],
+        'Geometry & Trigonometry': ['Angles', 'Triangles', 'Circles', 'Area, Volume, Perimeter', 'Coordinate Geometry', 'Basic Trigonometry', 'Radians (Basic)']
+      },
+      Grammar: {
+        'Craft and Structure': ['Vocabulary in Context', 'Author\'s Purpose and Tone', 'Text Structure and Organization'],
+        'Information and Ideas': ['Main Idea and Supporting Details', 'Inference', 'Data Interpretation in Text'],
+        'Standard English Conventions': ['Verb Tense and Agreement', 'Pronouns and Modifiers', 'Punctuation (Commas, Semicolons)'],
+        'Expression of Ideas': ['Sentence Clarity and Conciseness', 'Logical Flow and Transitions']
+      }
+    };
+
+    // Handle section click
+    function handleSectionClick(section) {
+      activeSection = section;
+      activeTopic = '';
+      activeSubtopic = '';
+      lessonContent = null;
+      practiceQuestions = [];
+      userAnswers = {};
+      feedback = {};
+      
+      // Update UI
+      document.getElementById('section-title').textContent = section + ' Topics';
+      document.getElementById('topic-selection').classList.remove('hidden');
+      document.getElementById('subtopic-selection').classList.add('hidden');
+      document.getElementById('lesson-content').classList.add('hidden');
+      document.getElementById('practice-questions').classList.add('hidden');
+      
+      // Highlight active section button
+      document.getElementById('math-btn').classList.remove('bg-blue-600', 'text-white');
+      document.getElementById('grammar-btn').classList.remove('bg-blue-600', 'text-white');
+      document.getElementById(section.toLowerCase() + '-btn').classList.add('bg-blue-600', 'text-white');
+      
+      // Populate topics
+      const topicsContainer = document.getElementById('topics-container');
+      topicsContainer.innerHTML = '';
+      
+      Object.keys(syllabus[section]).forEach(topic => {
+        const button = document.createElement('button');
+        button.textContent = topic;
+        button.className = 'p-3 text-left rounded-lg shadow-md transition-all duration-200 bg-white hover:bg-gray-100 transform-scale transition-all';
+        button.onclick = () => handleTopicClick(topic);
+        topicsContainer.appendChild(button);
+      });
+    }
+
+    // Handle topic click
+    function handleTopicClick(topic) {
+      activeTopic = topic;
+      activeSubtopic = '';
+      lessonContent = null;
+      practiceQuestions = [];
+      userAnswers = {};
+      feedback = {};
+      
+      // Update UI
+      document.getElementById('topic-title').textContent = topic + ' Subtopics';
+      document.getElementById('subtopic-selection').classList.remove('hidden');
+      document.getElementById('lesson-content').classList.add('hidden');
+      document.getElementById('practice-questions').classList.add('hidden');
+      
+      // Update active topic button
+      const topicButtons = document.querySelectorAll('#topics-container button');
+      topicButtons.forEach(button => {
+        button.classList.remove('border-blue-500', 'border-2', 'text-blue-600');
+        if (button.textContent === topic) {
+          button.classList.add('border-blue-500', 'border-2', 'text-blue-600');
+        }
+      });
+      
+      // Populate subtopics
+      const subtopicsContainer = document.getElementById('subtopics-container');
+      subtopicsContainer.innerHTML = '';
+      
+      syllabus[activeSection][topic].forEach(subtopic => {
+        const button = document.createElement('button');
+        button.textContent = subtopic;
+        button.className = 'p-3 text-left rounded-lg shadow-md transition-all duration-200 bg-white hover:bg-gray-100 transform-scale transition-all';
+        button.onclick = () => handleSubtopicClick(subtopic);
+        subtopicsContainer.appendChild(button);
+      });
+    }
+
+    // Handle subtopic click
+    function handleSubtopicClick(subtopic) {
+      activeSubtopic = subtopic;
+      
+      // Update active subtopic button
+      const subtopicButtons = document.querySelectorAll('#subtopics-container button');
+      subtopicButtons.forEach(button => {
+        button.classList.remove('border-blue-500', 'border-2', 'text-blue-600');
+        if (button.textContent === subtopic) {
+          button.classList.add('border-blue-500', 'border-2', 'text-blue-600');
+        }
+      });
+      
+      // Generate AI content
+      generateAIContent(activeTopic, subtopic);
+    }
+
+    // Mock function to simulate AI content generation
+    async function generateAIContent(topic, subtopic) {
+      // Show loading
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('lesson-content').classList.add('hidden');
+      document.getElementById('practice-questions').classList.add('hidden');
+      
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Mock lesson content based on topic and subtopic
+      const content = `
+        <h2>${subtopic}</h2>
+        
+        <h3>Introduction</h3>
+        <p>Welcome to our comprehensive guide on ${subtopic} for the SAT exam. This lesson will break down this important concept into easy-to-understand parts with plenty of examples and practice opportunities.</p>
+        
+        <h3>Key Concepts</h3>
+        <p>In ${subtopic}, you'll need to master several fundamental ideas that appear frequently on the SAT:</p>
+        <ul>
+          <li>Understanding the core principles of ${subtopic}</li>
+          <li>Recognizing common patterns in ${subtopic} problems</li>
+          <li>Applying efficient strategies to solve ${subtopic} questions quickly</li>
+        </ul>
+        
+        <h3>Detailed Explanation</h3>
+        <p>The SAT regularly tests ${subtopic} through problems that require careful analysis and application of key formulas and concepts. Let's explore the most important aspects you need to know:</p>
+        
+        <p>For ${topic} problems involving ${subtopic}, the SAT typically presents scenarios where you'll need to identify relevant information, set up appropriate equations or expressions, and solve methodically while avoiding common pitfalls.</p>
+        
+        <h3>Step-by-Step Approach</h3>
+        <ol>
+          <li>Read the problem carefully, identifying what's being asked</li>
+          <li>Extract the key information and variables</li>
+          <li>Select the appropriate formula or approach for this ${subtopic} problem</li>
+          <li>Work through the solution systematically</li>
+          <li>Check your answer for reasonableness</li>
+        </ol>
+        
+        <h3>Common Mistakes to Avoid</h3>
+        <ul>
+          <li>Misinterpreting the problem requirements</li>
+          <li>Applying the wrong formula or approach</li>
+          <li>Calculation errors under time pressure</li>
+          <li>Not checking if your answer makes sense in context</li>
+        </ul>
+        
+        <h3>Example Problems</h3>
+        <p>Let's look at some typical examples of ${subtopic} problems you might encounter on the SAT:</p>
+        
+        <div class="example">
+          <p><strong>Example 1:</strong> A problem demonstrating the basic application of ${subtopic} concepts.</p>
+          <p><strong>Example 2:</strong> A more challenging problem that combines ${subtopic} with other related concepts.</p>
+          <p><strong>Example 3:</strong> A word problem that requires translating real-world scenarios into ${subtopic} terms.</p>
+        </div>
+      `;
+      
+      // Mock practice questions
+      const questions = [
+        {
+          id: 1,
+          question: `Question 1: Which of the following best demonstrates a key principle of ${subtopic}?`,
+          options: ['Option A: First possible answer', 'Option B: Second possible answer', 'Option C: Third possible answer', 'Option D: Fourth possible answer'],
+          correctAnswer: 'Option C: Third possible answer',
+          explanation: `This answer is correct because it accurately represents how ${subtopic} works in this context. Options A, B, and D are incorrect because they misapply or misinterpret key concepts.`
+        },
+        {
+          id: 2,
+          question: `Question 2: In a problem involving ${subtopic}, what would be the first step to solve it?`,
+          options: ['Option A: Calculate the final value', 'Option B: Identify the variables and constraints', 'Option C: Draw a diagram', 'Option D: Apply the quadratic formula'],
+          correctAnswer: 'Option B: Identify the variables and constraints',
+          explanation: 'Identifying variables and constraints is always the crucial first step before attempting to solve any problem of this type.'
+        },
+        {
+          id: 3,
+          question: `Question 3: A typical ${subtopic} problem might ask you to:`,
+          options: ['Option A: First scenario', 'Option B: Second scenario', 'Option C: Third scenario', 'Option D: Fourth scenario'],
+          correctAnswer: 'Option A: First scenario',
+          explanation: 'This type of question is commonly asked in the SAT to test your understanding of fundamental concepts.'
+        },
+        {
+          id: 4,
+          question: `Question 4: Which formula is most relevant to solving ${subtopic} problems?`,
+          options: ['Option A: Formula one', 'Option B: Formula two', 'Option C: Formula three', 'Option D: Formula four'],
+          correctAnswer: 'Option B: Formula two',
+          explanation: 'This formula is the most applicable because it directly addresses the core concept being tested.'
+        },
+        {
+          id: 5,
+          question: `Question 5: What common mistake should you avoid when solving ${subtopic} problems?`,
+          options: ['Option A: First common mistake', 'Option B: Second common mistake', 'Option C: Third common mistake', 'Option D: Fourth common mistake'],
+          correctAnswer: 'Option C: Third common mistake',
+          explanation: 'This is a frequent error that students make when approaching these problems, often leading to incorrect answers.'
+        }
+      ];
+      
+      lessonContent = content;
+      practiceQuestions = questions;
+      userAnswers = {};
+      feedback = {};
+      
+      // Hide loading, show content
+      document.getElementById('loading').classList.add('hidden');
+      
+      // Populate lesson content
+      const lessonContentContainer = document.getElementById('lesson-content');
+      lessonContentContainer.innerHTML = `<div class="prose max-w-none">${content}</div>`;
+      lessonContentContainer.classList.remove('hidden');
+      
+      // Populate practice questions
+      const questionsContainer = document.getElementById('questions-container');
+      questionsContainer.innerHTML = '';
+      
+      questions.forEach(question => {
+        const questionElement = document.createElement('div');
+        questionElement.className = 'border border-gray-300 p-4 rounded-lg bg-gray-50';
+        
+        // Question text
+        const questionText = document.createElement('p');
+        questionText.className = 'font-medium mb-3 text-gray-800';
+        questionText.textContent = question.question;
+        questionElement.appendChild(questionText);
+        
+        // Options
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'space-y-2 mb-3';
+        
+        question.options.forEach(option => {
+          const optionDiv = document.createElement('div');
+          optionDiv.className = 'flex items-start';
+          
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.id = `q${question.id}-${option}`;
+          input.name = `question-${question.id}`;
+          input.className = 'mt-1 mr-2 accent-blue-600';
+          input.addEventListener('change', () => handleAnswerSelect(question.id, option));
+          
+          const label = document.createElement('label');
+          label.htmlFor = `q${question.id}-${option}`;
+          label.className = 'cursor-pointer hover:text-blue-600';
+          label.textContent = option;
+          
+          optionDiv.appendChild(input);
+          optionDiv.appendChild(label);
+          optionsContainer.appendChild(optionDiv);
+        });
+        
+        questionElement.appendChild(optionsContainer);
+        
+        // Feedback container (initially empty)
+        const feedbackContainer = document.createElement('div');
+        feedbackContainer.id = `feedback-${question.id}`;
+        feedbackContainer.className = 'hidden p-3 rounded-lg mt-3';
+        questionElement.appendChild(feedbackContainer);
+        
+        questionsContainer.appendChild(questionElement);
+      });
+      
+      document.getElementById('practice-questions').classList.remove('hidden');
+    }
+
+    // Handle answer selection
+    function handleAnswerSelect(questionId, option) {
+      userAnswers[questionId] = option;
+      
+      const question = practiceQuestions.find(q => q.id === questionId);
+      
+      const isCorrect = option === question.correctAnswer;
+      feedback[questionId] = {
+        isCorrect: isCorrect,
+        explanation: isCorrect ? 
+          'Correct! Well done.' : 
+          `Incorrect. ${question.explanation}`
+      };
+      
+      // Update feedback UI
+      const feedbackContainer = document.getElementById(`feedback-${questionId}`);
+      feedbackContainer.innerHTML = `
+        <p class="font-medium">${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</p>
+        <p>${feedback[questionId].explanation}</p>
+      `;
+      feedbackContainer.className = `p-3 rounded-lg mt-3 ${isCorrect ? 'bg-green-100 text-green-800 border border-green-500' : 'bg-red-100 text-red-800 border border-red-500'}`;
+      feedbackContainer.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

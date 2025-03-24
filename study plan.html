@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT Study Plan System</title>
+  <style>
+    :root {
+      /* Color palette */
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #10b981;
+      --secondary-dark: #059669;
+      --accent: #8b5cf6;
+      --light-bg: #f3f4f6;
+      --card-bg: #ffffff;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      
+      /* Font */
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text-primary);
+      background-color: var(--light-bg);
+      line-height: 1.5;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+      border: none;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--secondary-dark);
+    }
+    
+    .btn-outline {
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--text-primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--light-bg);
+    }
+    
+    .header {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .header p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .card-description {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .details-container {
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .details-sidebar {
+      width: 30%;
+    }
+    
+    .details-content {
+      width: 70%;
+    }
+    
+    .plan-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .plan-header h2 {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+    
+    .plan-emoji {
+      font-size: 3rem;
+    }
+    
+    section {
+      margin-bottom: 2rem;
+    }
+    
+    section h3 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    ul {
+      list-style-type: none;
+    }
+    
+    ul li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    ul li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    .sample-week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+    }
+    
+    .day {
+      background-color: var(--light-bg);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .day-header {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .task {
+      padding: 0.5rem;
+      background-color: white;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .task.reading {
+      border-left: 3px solid var(--primary);
+    }
+    
+    .task.math {
+      border-left: 3px solid var(--secondary);
+    }
+    
+    .task.writing {
+      border-left: 3px solid var(--accent);
+    }
+    
+    .dashboard {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .dashboard-sidebar {
+      width: 20%;
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      height: fit-content;
+    }
+    
+    .dashboard-content {
+      width: 80%;
+    }
+    
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .sidebar-nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+    
+    .sidebar-nav a:hover {
+      background-color: var(--light-bg);
+    }
+    
+    .sidebar-nav a.active {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .welcome-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .calendar {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .calendar-navigation {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .week-view {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1rem;
+    }
+    
+    .week-day {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      min-height: 200px;
+    }
+    
+    .week-day-header {
+      text-align: center;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    
+    .calendar-task {
+      background-color: var(--light-bg);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .calendar-task:hover {
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    
+    .calendar-task.reading {
+      border-left: 3px solid var(--primary);
+    }
+    
+    .calendar-task.math {
+      border-left: 3px solid var(--secondary);
+    }
+    
+    .calendar-task.writing {
+      border-left: 3px solid var(--accent);
+    }
+    
+    .progress-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .progress-card {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .progress-bar-container {
+      height: 1rem;
+      background-color: var(--light-bg);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin: 0.5rem 0 1rem;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary);
+      width: 65%;
+    }
+    
+    .progress-bar.reading {
+      background-color: var(--primary);
+      width: 75%;
+    }
+    
+    .progress-bar.math {
+      background-color: var(--secondary);
+      width: 45%;
+    }
+    
+    .progress-bar.writing {
+      background-color: var(--accent);
+      width: 60%;
+    }
+    
+    .motivational-card {
+      background-color: var(--accent);
+      color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .motivational-card h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      border: none;
+    }
+    
+    .motivational-card p {
+      font-style: italic;
+    }
+    
+    .customization-form {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .checkbox-group input {
+      width: auto;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--light-bg);
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+      background-color: var(--primary);
+    }
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(26px);
+    }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .dashboard {
+        flex-direction: column;
+      }
+      
+      .dashboard-sidebar {
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+      
+      .dashboard-content {
+        width: 100%;
+      }
+      
+      .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .details-container {
+        flex-direction: column;
+      }
+      
+      .details-sidebar, .details-content {
+        width: 100%;
+      }
+      
+      .sample-week {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .week-view {
+        grid-template-columns: 1fr;
+      }
+      
+      .progress-summary {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Current View Styles */
+    #plan-selection {
+      display: block;
+    }
+    
+    #plan-detail, #dashboard, #customization {
+      display: none;
+    }
+    
+    /* Page Specific Styles */
+    /* ... */
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <span>📚</span> SAT Study Planner
+    </div>
+    <div class="nav-links">
+      <a href="#" id="home-link">Home</a>
+      <a href="#" id="dashboard-link">Dashboard</a>
+      <a href="#" id="login-btn" class="btn btn-primary">Login</a>
+    </div>
+  </nav>
+  
+  <!-- Home/Plan Selection -->
+  <section id="plan-selection">
+    <div class="container">
+      <div class="header">
+        <h1>Choose Your SAT Study Plan</h1>
+        <p>Select from our expert-designed study plans tailored to your schedule and learning style</p>
+      </div>
+      
+      <div class="grid">
+        <!-- Plan Card 1 -->
+        <div class="card" onclick="showPlanDetail('fast-track')">
+          <div class="card-title">
+            <span class="card-icon">🚀</span>
+            Fast Track Plan
+          </div>
+          <div class="card-description">2 Weeks to Go</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 2 -->
+        <div class="card" onclick="showPlanDetail('slow-steady')">
+          <div class="card-title">
+            <span class="card-icon">🐢</span>
+            Slow & Steady Plan
+          </div>
+          <div class="card-description">3 Months Prep</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 3 -->
+        <div class="card" onclick="showPlanDetail('weekend-warrior')">
+          <div class="card-title">
+            <span class="card-icon">🏋️</span>
+            Weekend Warrior
+          </div>
+          <div class="card-description">Busy Weekdays</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 4 -->
+        <div class="card" onclick="showPlanDetail('section-focused')">
+          <div class="card-title">
+            <span class="card-icon">🎯</span>
+            Section-Focused Plan
+          </div>
+          <div class="card-description">Target Weak Areas</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 5 -->
+        <div class="card" onclick="showPlanDetail('early-bird')">
+          <div class="card-title">
+            <span class="card-icon">🕰</span>
+            Early Bird Plan
+          </div>
+          <div class="card-description">6+ Months Prep</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 6 -->
+        <div class="card" onclick="showPlanDetail('mock-test-master')">
+          <div class="card-title">
+            <span class="card-icon">📝</span>
+            Mock Test Master Plan
+          </div>
+          <div class="card-description">Learn by Practice Tests</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 7 -->
+        <div class="card" onclick="showPlanDetail('night-owl')">
+          <div class="card-title">
+            <span class="card-icon">🌙</span>
+            Night Owl Plan
+          </div>
+          <div class="card-description">Late Night Study</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 8 -->
+        <div class="card" onclick="showPlanDetail('visual-learner')">
+          <div class="card-title">
+            <span class="card-icon">🎨</span>
+            Visual Learner Plan
+          </div>
+          <div class="card-description">Hate Text, Love Videos</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 9 -->
+        <div class="card" onclick="showPlanDetail('score-booster')">
+          <div class="card-title">
+            <span class="card-icon">🔥</span>
+            Score Booster Plan
+          </div>
+          <div class="card-description">Gain 100+ Points Fast</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+        
+        <!-- Plan Card 10 -->
+        <div class="card" onclick="showPlanDetail('minimalist')">
+          <div class="card-title">
+            <span class="card-icon">😴</span>
+            Minimalist Plan
+          </div>
+          <div class="card-description">Do Bare Minimum</div>
+          <a href="#" class="btn btn-primary">View Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Plan Detail Page -->
+  <section id="plan-detail">
+    <div class="container">
+      <div class="plan-header">
+        <span class="plan-emoji">🚀</span>
+        <h2>Fast Track Plan</h2>
+      </div>
+      
+      <div class="details-container">
+        <div class="details-sidebar">
+          <div class="card">
+            <h3>Plan Summary</h3>
+            <ul>
+              <li>Duration: 2 weeks</li>
+              <li>Intensity: High</li>
+              <li>Mock Tests: 1-2 per week</li>
+              <li>Daily Study: 3-4 hours</li>
+            </ul>
+            
+            <div style="margin-top: 2rem;">
+              <label style="display: flex; align-items: center; gap: 0.5rem;">
+                <span>Enable Notifications</span>
+                <label class="toggle-switch">
+                  <input type="checkbox">
+                  <span class="toggle-slider"></span>
+                </label>
+              </label>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+              <button id="start-plan-btn" class="btn btn-primary" style="width: 100%;" onclick="showDashboard()">Start This Plan</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="details-content">
+          <section>
+            <h3>Who is this for?</h3>
+            <p>The Fast Track Plan is perfect for students who have limited time before their SAT exam. This intensive two-week plan is designed for those who need to maximize their preparation in minimal time, focusing on high-impact strategies and targeted practice. Ideal for students who have some familiarity with the SAT format but need a comprehensive review and strategy boost before test day.</p>
+          </section>
+          
+          <section>
+            <h3>Plan Highlights</h3>
+            <ul>
+              <li>Daily intensive study sessions (3-4 hours)</li>
+              <li>1-2 full-length mock tests per week</li>
+              <li>Strategic content review focused on high-frequency topics</li>
+              <li>Daily practice sets targeting all three test sections</li>
+              <li>Emphasis on error analysis and mistake prevention</li>
+              <li>Test-day strategies and time management techniques</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>Sample Week View</h3>
+            <div class="sample-week">
+              <div class="day">
+                <div class="day-header">Monday</div>
+                <div class="task reading">Reading: Literary Passage (45m)</div>
+                <div class="task math">Math: Algebraic Expressions (30m)</div>
+                <div class="task writing">Writing: Standard English Conventions (30m)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Tuesday</div>
+                <div class="task reading">Reading: Science Passage (45m)</div>
+                <div class="task math">Math: Problem Solving (45m)</div>
+                <div class="task writing">Writing: Expression of Ideas (30m)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Wednesday</div>
+                <div class="task reading">Reading: Historical Documents (45m)</div>
+                <div class="task math">Math: Advanced Math (45m)</div>
+                <div class="task writing">Writing: Command of Evidence (30m)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Thursday</div>
+                <div class="task reading">Reading: Paired Passages (60m)</div>
+                <div class="task math">Math: Geometry & Trigonometry (45m)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Friday</div>
+                <div class="task reading">Reading: Social Science (45m)</div>
+                <div class="task math">Math: Data Analysis (45m)</div>
+                <div class="task writing">Writing: Full Section Practice (35m)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Saturday</div>
+                <div class="task">Full Mock Test #1 (3h)</div>
+                <div class="task">Review & Error Analysis (2h)</div>
+              </div>
+              
+              <div class="day">
+                <div class="day-header">Sunday</div>
+                <div class="task">Strategic Review (2h)</div>
+                <div class="task">Practice Weak Areas (2h)</div>
+              </div>
+            </div>
+          </section>
+          
+          <section style="margin-top: 2rem;">
+            <a href="#" class="btn btn-outline" onclick="showCustomization()">Customize This Plan</a>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Dashboard Page -->
+  <section id="dashboard">
+    <div class="container">
+      <div class="welcome-header">
+        <h2>Welcome, Alex</h2>
+        <div>
+          <span>Fast Track Plan</span>
+          <button class="btn btn-outline">Change Plan</button>
+        </div>
+      </div>
+      
+      <div class="dashboard">
+        <div class="dashboard-sidebar">
+          <div class="sidebar-nav">
+            <a href="#" class="active">Calendar</a>
+            <a href="#">Progress</a>
+            <a href="#">Settings</a>
+          </div>
+        </div>
+        
+        <div class="dashboard-content">
+          <!-- Calendar View -->
+          <div class="calendar">
+            <div class="calendar-header">
+              <h3>This Week's Schedule</h3>
+              <div class="calendar-navigation">
+                <button class="btn btn-outline">Previous</button>
+                <button class="btn btn-outline">Next</button>
+              </div>
+            </div>
+            
+            <div class="week-view">
+              <div class="week-day">
+                <div class="week-day-header">Monday</div>
+                <div class="calendar-task reading">Reading Comprehension: Literary Analysis (45m)</div>
+                <div class="calendar-task math">Math No-Calculator: Equations (30m)</div>
+                <div class="calendar-task writing">Grammar & Writing: Punctuation (30m)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Tuesday</div>
+                <div class="calendar-task reading">Reading: Science Passage (45m)</div>
+                <div class="calendar-task math">Math: Problem Solving (45m)</div>
+                <div class="calendar-task writing">Writing: Expression of Ideas (30m)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Wednesday</div>
+                <div class="calendar-task reading">Reading: Historical Documents (45m)</div>
+                <div class="calendar-task math">Math: Advanced Math (45m)</div>
+                <div class="calendar-task writing">Writing: Command of Evidence (30m)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Thursday</div>
+                <div class="calendar-task reading">Reading: Paired Passages (60m)</div>
+                <div class="calendar-task math">Math: Geometry & Trigonometry (45m)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Friday</div>
+                <div class="calendar-task reading">Reading: Social Science (45m)</div>
+                <div class="calendar-task math">Math: Data Analysis (45m)</div>
+                <div class="calendar-task writing">Writing: Full Section Practice (35m)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Saturday</div>
+                <div class="calendar-task">Full Mock Test #1 (3h)</div>
+                <div class="calendar-task">Review & Error Analysis (2h)</div>
+              </div>
+              
+              <div class="week-day">
+                <div class="week-day-header">Sunday</div>
+                <div class="calendar-task">Strategic Review (2h)</div>
+                <div class="calendar-task">Practice Weak Areas (2h)</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Progress Summary -->
+          <div class="progress-summary">
+            <div class="progress-card">
+              <h3>Overall Progress</h3>
+              <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>65% Complete</span>
+                <span>15 of 23 tasks</span>
+              </div>
+              
+              <div style="margin-top: 1.5rem;">
+                <h4>Section Progress</h4>
+                
+                <div style="margin-top: 1rem;">
+                  <div style="display: flex; justify-content: space-between;">
+                    <span>Reading</span>
+                    <span>75%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar reading"></div>
+                  </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                  <div style="display: flex; justify-content: space-between;">
+                    <span>Math</span>
+                    <span>45%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar math"></div>
+                  </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                  <div style="display: flex; justify-content: space-between;">
+                    <span>Writing</span>
+                    <span>60%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar writing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="motivational-card">
+              <h3>Keep it up!</h3>
+              <p>"Success is the sum of small efforts, repeated day in and day out."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Customization Page -->
+  <section id="customization">
+    <div class="container">
+      <h2>Customize Your Plan</h2>
+      <p>Adjust the Fast Track Plan to better fit your schedule and learning needs</p>
+      
+      <div class="customization-form">
+        <div class="form-group">
+          <label>Available study time per day</label>
+          <select>
+            <option>1-2 hours</option>
+            <option selected>3-4 hours</option>
+            <option>5+ hours</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Preferred focus area</label>
+          <select>
+            <option>Balanced</option>
+            <option>More Reading</option>
+            <option>More Math</option>
+            <option>More Writing</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Number of practice tests</label>
+          <select>
+            <option>1 per week</option>
+            <option selected>2 per week</option>
+            <option>3 per week</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Preferred study days</label>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+            <div class="checkbox-group">
+              <input type="checkbox" id="monday" checked>
+              <label for="monday">Monday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="tuesday" checked>
+              <label for="tuesday">Tuesday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="wednesday" checked>
+              <label for="wednesday">Wednesday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="thursday" checked>
+              <label for="thursday">Thursday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="friday" checked>
+              <label for="friday">Friday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="saturday" checked>
+              <label for="saturday">Saturday</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="sunday" checked>
+              <label for="sunday">Sunday</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Notification preferences</label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="daily-reminders" checked>
+            <label for="daily-reminders">Daily study reminders</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="progress-updates" checked>
+            <label for="progress-updates">Weekly progress updates</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="test-reminders" checked>
+            <label for="test-reminders">Mock test reminders</label>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+          <button class="btn btn-primary" onclick="showDashboard()">Save & Apply</button>
+          <button class="btn btn-outline" onclick="showPlanDetail()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Simple JavaScript to toggle views -->
+  <script>
+    // Navigation functions
+    function showPlanSelection() {
+      document.getElementById('plan-selection').style.display = 'block';
+      document.getElementById('plan-detail').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('customization').style.display = 'none';
+    }
+    
+    function showPlanDetail(planId) {
+      document.getElementById('plan-selection').style.display = 'none';
+      document.getElementById('plan-detail').style.display = 'block';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('customization').style.display = 'none';
+      
+      // Update plan details based on the selected plan
+      const planEmoji = document.querySelector('.plan-emoji');
+      const planTitle = document.querySelector('.plan-header h2');
+      
+      switch(planId) {
+        case 'fast-track':
+          planEmoji.textContent = '🚀';
+          planTitle.textContent = 'Fast Track Plan';
+          break;
+        case 'slow-steady':
+          planEmoji.textContent = '🐢';
+          planTitle.textContent = 'Slow & Steady Plan';
+          break;
+        case 'weekend-warrior':
+          planEmoji.textContent = '🏋️';
+          planTitle.textContent = 'Weekend Warrior Plan';
+          break;
+        case 'section-focused':
+          planEmoji.textContent = '🎯';
+          planTitle.textContent = 'Section-Focused Plan';
+          break;
+        case 'early-bird':
+          planEmoji.textContent = '🕰';
+          planTitle.textContent = 'Early Bird Plan';
+          break;
+        case 'mock-test-master':
+          planEmoji.textContent = '📝';
+          planTitle.textContent = 'Mock Test Master Plan';
+          break;
+        case 'night-owl':
+          planEmoji.textContent = '🌙';
+          planTitle.textContent = 'Night Owl Plan';
+          break;
+        case 'visual-learner':
+          planEmoji.textContent = '🎨';
+          planTitle.textContent = 'Visual Learner Plan';
+          break;
+        case 'score-booster':
+          planEmoji.textContent = '🔥';
+          planTitle.textContent = 'Score Booster Plan';
+          break;
+        case 'minimalist':
+          planEmoji.textContent = '😴';
+          planTitle.textContent = 'Minimalist Plan';
+          break;
+      }
+    }
+    
+    function showDashboard() {
+      document.getElementById('plan-selection').style.display = 'none';
+      document.getElementById('plan-detail').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('customization').style.display = 'none';
+    }
+    
+    function showCustomization() {
+      document.getElementById('plan-selection').style.display = 'none';
+      document.getElementById('plan-detail').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('customization').style.display = 'block';
+    }
+    
+    // Event listeners
+    document.getElementById('home-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showPlanSelection();
+    });
+    
+    document.getElementById('dashboard-link').addEventListener('click', function(e) {
+      e.preventDefault();
+      showDashboard();
+    });
+  </script>
+</body>
+</html>
