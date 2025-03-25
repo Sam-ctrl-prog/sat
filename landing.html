@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPro - AI-Powered Learning Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+:root {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #282828;
+  --text-primary: #f1f1f1;
+  --text-secondary: #c1c1c1;
+  --accent: #3B82F6;
+  --accent-secondary: #2563EB;
+  --success: #4EAD6D;
+  --border: #333333;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --animation-speed: 0.3s;
+}
+
+:root.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f4;
+  --bg-tertiary: #e0e0e0;
+  --text-primary: #1f1f1f;
+  --text-secondary: #555555;
+  --accent: #3B82F6;
+  --accent-secondary: #2563EB;
+  --border: #d1d1d1;
+}
+
+* {
+  transition: background-color var(--animation-speed) ease,
+              color var(--animation-speed) ease;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  z-index: 100;
+  transition: transform var(--animation-speed) ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(180deg);
+}
+
+.theme-toggle i {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+}
+
+/* Navigation Styles */
+.nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: linear-gradient(
+    to right, 
+    rgba(30, 30, 30, 0.8), 
+    rgba(30, 30, 30, 0.9)
+  );
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--animation-speed) ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all var(--animation-speed) ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 6rem 0 4rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Features Section */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.feature-card {
+  background-color: var(--bg-tertiary);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  transition: transform var(--animation-speed) ease, box-shadow var(--animation-speed) ease;
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+  box-shadow: var(--card-shadow);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+/* Pricing Section */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.pricing-card {
+  background-color: var(--bg-tertiary);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  transition: transform var(--animation-speed) ease, box-shadow var(--animation-speed) ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--card-shadow);
+}
+
+.pricing-title {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.pricing-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-features {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-features li {
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Testimonials Section */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial {
+  background-color: var(--bg-tertiary);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.testimonial-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <i class="fas fa-brain" style="color: var(--accent);"></i>
+                <span class="text-2xl font-bold" style="color: var(--accent);">StudyPro</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="login.html" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-adjust"></i>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Revolutionize Your SAT Prep</h1>
+            <p class="hero-subtitle">
+                Unlock your potential with AI-powered learning. Personalized strategies, intelligent insights, and adaptive study plans tailored just for you.
+            </p>
+            <div class="hero-cta">
+                <a href="signup.html" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Get Started
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </a>
+            </div>
+
+            <!-- Features Section -->
+            <section id="features" class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">AI Study Plan</h3>
+                    <p>
+                        Dynamically generated roadmap that adapts to your unique learning style and performance.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-sm mt-4">
+                        Explore Feature
+                    </a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Tutoring</h3>
+                    <p>
+                        24/7 AI-powered tutor providing instant, contextual explanations and personalized support.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-sm mt-4">
+                        Explore Feature
+                    </a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-analytics"></i>
+                    </div>
+                    <h3 class="feature-title">Performance Analytics</h3>
+                    <p>
+                        Comprehensive insights and predictive analytics to track and boost your SAT preparation progress.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-sm mt-4">
+                        Explore Feature
+                    </a>
+                </div>
+            </section>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="section">
+            <div class="section-title">
+                <h2>Flexible Pricing Plans</h2>
+                <p class="text-lg">Choose the perfect plan for your SAT preparation journey</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Basic</h3>
+                    <p class="pricing-price">$9.99/month</p>
+                    <ul class="pricing-features">
+                        <li>Basic Study Materials</li>
+                        <li>Limited Practice Tests</li>
+                        <li>Standard AI Tutor</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Pro</h3>
+                    <p class="pricing-price">$19.99/month</p>
+                    <ul class="pricing-features">
+                        <li>Comprehensive Study Materials</li>
+                        <li>Unlimited Practice Tests</li>
+                        <li>Advanced AI Tutor</li>
+                        <li>Performance Analytics</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Enterprise</h3>
+                    <p class="pricing-price">$49.99/month</p>
+                    <ul class="pricing-features">
+                        <li>All Pro Features</li>
+                        <li>Personal Mentor</li>
+                        <li>Priority Support</li>
+                        <li>Custom Learning Path</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section">
+            <div class="section-title">
+                <h2>What Our Students Say</h2>
+                <p class="text-lg">Real stories from students who transformed their SAT scores</p>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-avatar">JS</div>
+                    <div>
+                        <p class="mb-4">"StudyPro's AI tutor helped me improve my SAT score by 200 points. The personalized study plan was a game-changer!"</p>
+                        <h4 class="font-bold" style="color: var(--accent);">John Smith</h4>
+                        <p>High School Senior</p>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-avatar">EM</div>
+                    <div>
+                        <p class="mb-4">"I was struggling with math, but the adaptive learning technology made complex problems feel manageable."</p>
+                        <h4 class="font-bold" style="color: var(--accent);">Emma Martinez</h4>
+                        <p>College Prep Student</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 StudyPro. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    // Check for saved theme preference or default to dark
+    const currentTheme = localStorage.getItem('studyProTheme') || 'dark';
+    htmlElement.classList.toggle('light-theme', currentTheme === 'light');
+
+    themeToggle.addEventListener('click', () => {
+        htmlElement.classList.toggle('light-theme');
+        
+        // Save theme preference
+        const theme = htmlElement.classList.contains('light-theme') ? 'light' : 'dark';
+        localStorage.setItem('studyProTheme', theme);
+    });
+    </script>
+</body>
+</html>
